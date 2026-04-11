@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - PDF Reader</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            color: #7a0553be;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 16px;
+            text-align: justify;
+        }
+
+        .highlight {
+            color: #7e0606;
+            font-weight: bold;
+        }
+
+        .features {
+            margin-top: 30px;
+        }
+
+        .feature {
+            background: #f4f6ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+
+        .feature:hover {
+            transform: scale(1.03);
+            background: #e0e4ff;
+        }
+
+        .btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            text-align: center;
+            padding: 12px;
+            background: #5a4fcf;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #4438b0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+        body {
+            background: linear-gradient(270deg, #667eea, #764ba2, #068039);
+            background-size: 600% 600%;
+            animation: gradientMove 10s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% }
+            50% { background-position: 100% }
+            100% { background-position: 0% }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        
+        <h1>📄 About PDF Reader</h1>
+
+        <p>
+            <span class="highlight">PDF Reader</span> is a smart web app that helps you interact with your documents easily. 
+            Instead of scrolling through pages, you can upload a PDF and get instant answers using AI.
+        </p>
+
+        <p>
+            Whether you're a student, developer, or professional, this tool saves time and improves productivity by turning 
+            static PDFs into interactive conversations.
+        </p>
+
+        <div class="features">
+            <div class="feature">⚡ Instant Answers</div>
+            <div class="feature">🤖 AI-powered understanding</div>
+            <div class="feature">📚 Works with any PDF</div>
+            <div class="feature">🚀 Fast & Simple Interface</div>
+        </div>
+
+        <a href="/" class="btn">⬅ Back to Home</a>
+    </div>
+
+</body>
+</html>
