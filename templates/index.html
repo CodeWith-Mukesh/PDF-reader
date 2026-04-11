@@ -201,6 +201,13 @@
             box.appendChild(div);
             box.scrollTop = box.scrollHeight;
         }
+        const input = document.getElementById("question");
+        input.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // form reload stop
+                askQuestion();
+            }
+        });
     </script>
     </div>
 </body>
