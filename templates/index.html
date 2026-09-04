@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexiParse | Intelligent AI Document Analysis</title>
+    <meta name="description" content="FlexiParse is an interactive AI-powered PDF reader and document comprehension platform. Ask questions and get instant answers with citations.">
+    
+    <!-- Design System & Stylesheets -->
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Highlight.js for code blocks -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Canvas Confetti for celebratory micro-animations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Interactive Background Particles Canvas -->
+    <canvas id="bg-canvas" class="bg-particle-canvas"></canvas>
+
+    <!-- Drifting Aurora Orbs -->
+    <div class="ambient-aurora">
+        <div class="aurora-orb aurora-1"></div>
+        <div class="aurora-orb aurora-2"></div>
+        <div class="aurora-orb aurora-3"></div>
+    </div>
+    <div class="bg-grid-overlay"></div>
+
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <header class="navbar">
+            <a href="/" class="brand">
+                <div class="brand-logo-container">
+                    <svg class="brand-svg-logo" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="fpGradMain" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#6366F1" />
+                                <stop offset="50%" stop-color="#8B5CF6" />
+                                <stop offset="100%" stop-color="#06B6D4" />
+                            </linearGradient>
+                            <linearGradient id="fpGradFold" x1="100%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#06B6D4" />
+                                <stop offset="100%" stop-color="#3B82F6" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="5" y="5" width="34" height="34" rx="10" fill="url(#fpGradMain)" />
+                        <!-- Inner Doc Layer with Folded Corner -->
+                        <path d="M13 11H25L31 17V33H13V11Z" fill="#0B1120" fill-opacity="0.88" />
+                        <path d="M25 11V17H31L25 11Z" fill="url(#fpGradFold)" />
+                        <!-- Neural Parse Wave / Vector Bolt -->
+                        <path d="M18 24L22 19L21 26L26 21" stroke="#06B6D4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="18" cy="24" r="1.8" fill="#6366F1" />
+                        <circle cx="26" cy="21" r="1.8" fill="#06B6D4" />
+                        <circle cx="21" cy="26" r="1.8" fill="#F43F5E" />
+                    </svg>
+                </div>
+                <div class="brand-text-group">
+                    <div class="brand-title-wrap">
+                        <span class="brand-flexi">FLEXI</span><span class="brand-parse">PARSE</span>
+                        <span class="brand-live-dot" title="Neural Engine Ready"></span>
+                    </div>
+                    <span class="brand-subline">NEURAL DOC COGNITION</span>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <a href="/" class="nav-link active">
+                    <i data-lucide="layout-grid" style="width:16px;height:16px;"></i>
+                    <span>Workspace</span>
+                </a>
+                <a href="/about" class="nav-link">
+                    <i data-lucide="info" style="width:16px;height:16px;"></i>
+                    <span>About</span>
+                </a>
+                <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Dark/Light Mode">
+                    <i id="theme-icon" data-lucide="sun" style="width:18px;height:18px;"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Left Deck: Document Ingestion & Quick Insights -->
+            <section class="doc-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <i data-lucide="folder-up" style="color:var(--accent-primary);width:20px;height:20px;"></i>
+                        Document Deck
+                    </h2>
+                    <div class="status-pill" id="status-pill">
+                        <div class="status-dot"></div>
+                        <span id="status-text">No Document</span>
+                    </div>
+                </div>
+
+                <!-- Drag and drop zone -->
+                <div class="dropzone" id="dropzone">
+                    <input type="file" id="pdf-file-input" class="dropzone-file-input" accept=".pdf">
+                    <div class="dropzone-icon-ring">
+                        <i data-lucide="upload-cloud" style="width:28px;height:28px;"></i>
+                    </div>
+                    <div>
+                        <div class="dropzone-title">Upload your PDF</div>
+                        <div class="dropzone-subtitle">Drag & drop or click to browse (Max 50MB)</div>
+                    </div>
+                </div>
+
+                <!-- Active Uploaded File Card -->
+                <div class="active-file-card" id="active-file-card">
+                    <div class="file-info">
+                        <div class="file-icon">
+                            <i data-lucide="file-code" style="width:24px;height:24px;"></i>
+                        </div>
+                        <div class="file-details">
+                            <div class="file-name" id="active-file-name">filename.pdf</div>
+                            <div class="file-meta" id="active-file-meta">2.4 MB • Ready</div>
+                        </div>
+                        <button class="remove-file-btn" id="remove-file-btn" title="Remove and replace PDF">
+                            <i data-lucide="x" style="width:18px;height:18px;"></i>
+                        </button>
+                    </div>
+
+                    <!-- Upload Progress -->
+                    <div class="progress-container" id="upload-progress">
+                        <div class="progress-track">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="progress-label">Processing...</span>
+                            <span id="progress-percent">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggested Quick Queries -->
+                <div class="suggested-prompts">
+                    <span class="section-label">Quick Insights</span>
+                    <button class="prompt-chip" data-prompt="Summarize this document in 3 concise bullet points with key takeaways.">
+                        <i data-lucide="sparkles" style="width:16px;height:16px;"></i>
+                        <span>Summarize Key Points</span>
+                    </button>
+                    <button class="prompt-chip" data-prompt="What are the main action items or recommendations outlined in this document?">
+                        <i data-lucide="check-square" style="width:16px;height:16px;"></i>
+                        <span>Extract Action Items</span>
+                    </button>
+                    <button class="prompt-chip" data-prompt="What are the potential limitations, risks, or challenges mentioned?">
+                        <i data-lucide="alert-triangle" style="width:16px;height:16px;"></i>
+                        <span>Find Risks & Limitations</span>
+                    </button>
+                    <button class="prompt-chip" data-prompt="Explain the technical concepts or methodologies used in simple terms.">
+                        <i data-lucide="book-open" style="width:16px;height:16px;"></i>
+                        <span>Explain Simply</span>
+                    </button>
+                </div>
+
+                <!-- Document Features Pill Bar -->
+                <div style="margin-top:auto; padding-top: 1rem; border-top: 1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted);">
+                    <span style="display:flex; align-items:center; gap:4px;">
+                        <i data-lucide="shield-check" style="width:14px;height:14px;color:var(--accent-emerald);"></i> Private & Isolated
+                    </span>
+                    <span style="display:flex; align-items:center; gap:4px;">
+                        <i data-lucide="zap" style="width:14px;height:14px;color:var(--accent-cyan);"></i> Vector RAG
+                    </span>
+                </div>
+            </section>
+
+            <!-- Right Deck: AI Conversational Engine -->
+            <section class="chat-panel">
+                <!-- Chat Toolbar -->
+                <div class="chat-header">
+                    <div class="chat-header-info">
+                        <div class="chat-avatar-bot">
+                            <i data-lucide="bot" style="width:18px;height:18px;"></i>
+                        </div>
+                        <div>
+                            <div class="chat-title">FlexiParse Assistant</div>
+                            <div class="chat-subtitle">Context-Aware Neural Retrieval</div>
+                        </div>
+                    </div>
+                    <div class="chat-tools">
+                        <button class="icon-btn" id="sound-toggle-btn" title="Toggle Sound FX">
+                            <i data-lucide="volume-2" style="width:16px;height:16px;"></i>
+                        </button>
+                        <button class="icon-btn" id="export-chat-btn" title="Export Chat to Markdown">
+                            <i data-lucide="download" style="width:16px;height:16px;"></i>
+                        </button>
+                        <button class="icon-btn" id="clear-chat-btn" title="Clear Conversation">
+                            <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages Stream -->
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Default Greeting State with Bento Prompt Grid -->
+                    <div class="chat-welcome" id="chat-welcome">
+                        <div class="welcome-badge">
+                            <i data-lucide="cpu" style="width:36px;height:36px;"></i>
+                        </div>
+                        <h1 class="welcome-title">Welcome to FlexiParse</h1>
+                        <p class="welcome-desc">
+                            Upload any PDF to synthesize instant neural embeddings. Explore deep concepts, query financial charts, or pick a starter workflow below:
+                        </p>
+
+                        <!-- Creative Bento Grid -->
+                        <div class="bento-prompts-grid">
+                            <button class="bento-card" data-prompt="Provide a comprehensive executive summary of this document, highlighting the main problem, methodology, and ultimate conclusions.">
+                                <div class="bento-card-header">
+                                    <div class="bento-icon">
+                                        <i data-lucide="sparkles" style="width:15px;height:15px;"></i>
+                                    </div>
+                                    <span class="bento-title">Executive Summary</span>
+                                </div>
+                                <span class="bento-desc">High-level briefing of problem, methods & results</span>
+                            </button>
+
+                            <button class="bento-card" data-prompt="Extract all concrete action items, responsibilities, deliverables, or deadlines mentioned in this PDF.">
+                                <div class="bento-card-header">
+                                    <div class="bento-icon">
+                                        <i data-lucide="check-circle-2" style="width:15px;height:15px;"></i>
+                                    </div>
+                                    <span class="bento-title">Action Deliverables</span>
+                                </div>
+                                <span class="bento-desc">Next steps, commitments & operational milestones</span>
+                            </button>
+
+                            <button class="bento-card" data-prompt="What are the critical risks, limitations, liabilities, or unanswered questions identified in this document?">
+                                <div class="bento-card-header">
+                                    <div class="bento-icon">
+                                        <i data-lucide="shield-alert" style="width:15px;height:15px;"></i>
+                                    </div>
+                                    <span class="bento-title">Risks & Caveats</span>
+                                </div>
+                                <span class="bento-desc">Find legal liabilities, bottlenecks & edge cases</span>
+                            </button>
+
+                            <button class="bento-card" data-prompt="Extract all numerical statistics, metrics, financial figures, dates, and quantitative findings from this document.">
+                                <div class="bento-card-header">
+                                    <div class="bento-icon">
+                                        <i data-lucide="bar-chart-3" style="width:15px;height:15px;"></i>
+                                    </div>
+                                    <span class="bento-title">Metrics & Statistics</span>
+                                </div>
+                                <span class="bento-desc">Consolidate quantitative figures & timeline data</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Action Deck -->
+                <div class="chat-input-wrapper">
+                    <form class="chat-form" id="chat-form">
+                        <textarea 
+                            id="chat-input" 
+                            class="chat-textarea" 
+                            placeholder="Ask a question about your uploaded PDF... (Press Enter to send)" 
+                            rows="1"
+                        ></textarea>
+                        
+                        <div class="chat-input-actions">
+                            <button type="button" class="icon-btn" id="voice-input-btn" title="Voice Dictation">
+                                <i data-lucide="mic" style="width:16px;height:16px;"></i>
+                            </button>
+                            <button type="submit" class="send-btn" id="send-btn" disabled title="Send Query">
+                                <i data-lucide="send" style="width:16px;height:16px;"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Application Script -->
+    <script src="/static/js/app.js"></script>
+    <script>
+        // Initialize Lucide icons on first load
+        lucide.createIcons();
+    </script>
+</body>
+</html>

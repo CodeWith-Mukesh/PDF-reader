@@ -1,0 +1,9 @@
+flask
+python-dotenv
+langchain-community
+langchain-google-genai
+langchain-groq
+langchain-text-splitters
+langchain-huggingface
+pypdf
+sentence_transformers

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | FlexiParse AI</title>
+    <meta name="description" content="Learn about FlexiParse - an AI-driven document intelligence engine powering real-time PDF question answering.">
+    
+    <!-- Design System & Stylesheets -->
+    <link rel="stylesheet" href="/static/css/theme.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        .about-wrapper {
+            max-width: 1040px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 5px 14px;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: var(--radius-full);
+            color: var(--accent-primary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            max-width: 780px;
+            background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 660px;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-surface-glass);
+            backdrop-filter: var(--glass-backdrop);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 2rem 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-focus);
+            box-shadow: var(--accent-glow);
+        }
+
+        .feature-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-primary);
+        }
+
+        .feature-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .feature-text {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Architecture Section */
+        .arch-section {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .arch-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        .arch-desc {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+        }
+
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .pipeline-flow {
+                flex-direction: column;
+            }
+        }
+
+        .pipeline-step {
+            flex: 1;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1;
+        }
+
+        .pipeline-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pipeline-name {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .pipeline-detail {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* FAQ Accordion */
+        .faq-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: var(--bg-surface-glass);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+
+        .faq-question {
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1rem;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-primary);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.25rem;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        .faq-item.open {
+            border-color: var(--border-medium);
+        }
+
+        /* Launch CTA */
+        .cta-box {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-radius: var(--radius-xl);
+            background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, transparent 80%);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-gradient);
+            color: white;
+            text-decoration: none;
+            padding: 0.85rem 2rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: var(--accent-glow);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .about-page-container {
+            height: auto !important;
+            min-height: 100vh !important;
+            max-height: none !important;
+            overflow-y: visible !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Interactive Background Particles Canvas -->
+    <canvas id="bg-canvas" class="bg-particle-canvas"></canvas>
+
+    <!-- Drifting Aurora Orbs -->
+    <div class="ambient-aurora">
+        <div class="aurora-orb aurora-1"></div>
+        <div class="aurora-orb aurora-2"></div>
+        <div class="aurora-orb aurora-3"></div>
+    </div>
+    <div class="bg-grid-overlay"></div>
+
+    <div class="app-container about-page-container">
+        <!-- Top Navigation -->
+        <header class="navbar">
+            <a href="/" class="brand">
+                <div class="brand-logo-container">
+                    <svg class="brand-svg-logo" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="fpGradMainAbout" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#6366F1" />
+                                <stop offset="50%" stop-color="#8B5CF6" />
+                                <stop offset="100%" stop-color="#06B6D4" />
+                            </linearGradient>
+                            <linearGradient id="fpGradFoldAbout" x1="100%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#06B6D4" />
+                                <stop offset="100%" stop-color="#3B82F6" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="5" y="5" width="34" height="34" rx="10" fill="url(#fpGradMainAbout)" />
+                        <path d="M13 11H25L31 17V33H13V11Z" fill="#0B1120" fill-opacity="0.88" />
+                        <path d="M25 11V17H31L25 11Z" fill="url(#fpGradFoldAbout)" />
+                        <path d="M18 24L22 19L21 26L26 21" stroke="#06B6D4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="18" cy="24" r="1.8" fill="#6366F1" />
+                        <circle cx="26" cy="21" r="1.8" fill="#06B6D4" />
+                        <circle cx="21" cy="26" r="1.8" fill="#F43F5E" />
+                    </svg>
+                </div>
+                <div class="brand-text-group">
+                    <div class="brand-title-wrap">
+                        <span class="brand-flexi">FLEXI</span><span class="brand-parse">PARSE</span>
+                        <span class="brand-live-dot" title="Neural Engine Ready"></span>
+                    </div>
+                    <span class="brand-subline">NEURAL DOC COGNITION</span>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <a href="/" class="nav-link">
+                    <i data-lucide="layout-grid" style="width:16px;height:16px;"></i>
+                    <span>Workspace</span>
+                </a>
+                <a href="/about" class="nav-link active">
+                    <i data-lucide="info" style="width:16px;height:16px;"></i>
+                    <span>About</span>
+                </a>
+                <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Dark/Light Mode">
+                    <i id="theme-icon" data-lucide="sun" style="width:18px;height:18px;"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- About Page Body -->
+        <main class="about-wrapper">
+            <!-- Hero -->
+            <section class="hero-section">
+                <div class="hero-pill">
+                    <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+                    Next-Generation Document Intelligence
+                </div>
+                <h1 class="hero-title">Turn Complex Documents into Instant Conversations</h1>
+                <p class="hero-desc">
+                    FlexiParse bridges documents and generative AI. Upload contracts, research papers, manuals, or financial records, and query them naturally with low latency and high precision.
+                </p>
+            </section>
+
+            <!-- Features Grid -->
+            <section class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i data-lucide="zap" style="width:24px;height:24px;"></i>
+                    </div>
+                    <h3 class="feature-title">Instant RAG Parsing</h3>
+                    <p class="feature-text">
+                        No manual skimming. Documents are vectorized instantly so you can get deep answers with specific citations in seconds.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i data-lucide="database" style="width:24px;height:24px;"></i>
+                    </div>
+                    <h3 class="feature-title">ChromaDB Vector Store</h3>
+                    <p class="feature-text">
+                        Advanced vector embeddings map document passages into high-dimensional semantic space, retrieving only relevant context.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+                    </div>
+                    <h3 class="feature-title">Google Gemini Reasoning</h3>
+                    <p class="feature-text">
+                        Leverages state-of-the-art LLMs to formulate articulate, structured, and factually grounded responses to any inquiry.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i data-lucide="lock" style="width:24px;height:24px;"></i>
+                    </div>
+                    <h3 class="feature-title">Private & Isolated</h3>
+                    <p class="feature-text">
+                        Your uploaded files remain within your designated environment with isolated embedding indices for maximum data privacy.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Architecture Flow Pipeline -->
+            <section class="arch-section">
+                <h2 class="arch-title">How FlexiParse Works</h2>
+                <p class="arch-desc">An end-to-end overview of our retrieval-augmented generation lifecycle.</p>
+
+                <div class="pipeline-flow">
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">1</div>
+                        <div class="pipeline-name">PDF Ingestion</div>
+                        <p class="pipeline-detail">Upload file & extract clean text content with document layout awareness.</p>
+                    </div>
+
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">2</div>
+                        <div class="pipeline-name">Semantic Chunking</div>
+                        <p class="pipeline-detail">Break content into overlapping segments to preserve semantic continuity.</p>
+                    </div>
+
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">3</div>
+                        <div class="pipeline-name">Vector Indexing</div>
+                        <p class="pipeline-detail">Convert chunks into embeddings stored inside ChromaDB for similarity search.</p>
+                    </div>
+
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">4</div>
+                        <div class="pipeline-name">AI Synthesis</div>
+                        <p class="pipeline-detail">Retrieve top relevant passages and synthesize the exact answer with Gemini.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-section">
+                <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:1rem; text-align:center;">Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What formats does FlexiParse support?</span>
+                        <i data-lucide="chevron-down" style="width:18px;height:18px;"></i>
+                    </div>
+                    <div class="faq-answer">
+                        FlexiParse currently specializes in all PDF documents, including scanned documents with text layers, research papers, legal briefs, textbooks, and technical documentation.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I export my chat conversations?</span>
+                        <i data-lucide="chevron-down" style="width:18px;height:18px;"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! With a single click of the Export button in the workspace, your entire conversation history is downloaded as a beautifully formatted Markdown file complete with timestamps.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Does FlexiParse support voice queries and audio speech?</span>
+                        <i data-lucide="chevron-down" style="width:18px;height:18px;"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely. Click the microphone icon next to the chat bar to dictate questions hands-free, and click "Speak" on any AI response to hear the answer read aloud.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Launch CTA -->
+            <section class="cta-box">
+                <h2 style="font-size:1.8rem; font-weight:800;">Ready to interrogate your documents?</h2>
+                <p style="color:var(--text-secondary); max-width:500px;">Experience lightning-fast document comprehension in the interactive workspace.</p>
+                <a href="/" class="cta-btn">
+                    <span>Open Workspace</span>
+                    <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Application Script -->
+    <script src="/static/js/app.js"></script>
+    <script>
+        // Init Lucide
+        lucide.createIcons();
+
+        // Accordion behavior
+        document.querySelectorAll('.faq-question').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                item.classList.toggle('open');
+                const icon = header.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-lucide', item.classList.contains('open') ? 'chevron-up' : 'chevron-down');
+                    lucide.createIcons();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

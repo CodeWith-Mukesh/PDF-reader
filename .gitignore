@@ -1,0 +1,16 @@
+.env
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.venv/
+
+# Chroma databases
+chroma_db/
+chroma_db_all-MiniLM-L6-v2/
+chroma_db_gemini-embedding-001/
+
+# Uploaded files
+uploads/
